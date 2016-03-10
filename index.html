@@ -1,0 +1,27 @@
+<!-- 
+
+Developed by Robert Thayer, GamerGadgets.net
+Contact: rob@gamergadgets.net
+Simple Script using the PayPal REST API for an express checkout payment.
+You may use this code as you see fit. I do not offer support with this script.
+
+-->
+
+<!DOCTYPE html>
+<head><title>REST API Simple Example</title></head>
+<body>
+    <h1>Buy this awesome shirt with PayPal!</h1>
+    <img src="http://www.curiousinkling.com/graphic-t-shirts/img/shirt%20images/captain-awesome-shirt.jpg"><br>
+    <p><strong>Price:</strong> $9.99 USD</p>
+    <form action="expresscheckout.php" method="post">
+        <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/checkout-logo-large.png" alt="Check out with PayPal" />
+        <input type="hidden" name="amount" value="9.99">
+    </form>
+   <!-- Note that there is currently no way to correctly use PayPal credit 2nd button with REST API -->
+    <p><strong>- OR -</strong></p>
+    <form action="expresscheckout.php" method="post">
+        <input type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/ppcredit_LG_BNPOT_1x.png" alt="PayPal Credit" />
+        <input type="hidden" name="ppc" value="true">
+        <input type="hidden" name="amount" value="9.99">
+    </form>
+</body>

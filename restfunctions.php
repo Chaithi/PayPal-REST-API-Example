@@ -1,13 +1,10 @@
-<!-- 
-
-Developed by Robert Thayer, GamerGadgets.net
-Contact: rob@gamergadgets.net
-Simple Script using the PayPal REST API for an express checkout payment.
-You may use this code as you see fit. I do not offer support with this script.
-
--->
-
 <?php
+    /*
+    Developed by Robert Thayer, GamerGadgets.net
+    Contact: rob@gamergadgets.net
+    Simple Script using the PayPal REST API for an express checkout payment.
+    You may use this code as you see fit. I do not offer support with this script.
+    */
     $token; // Used to hold the global token so you don't have to request a new token every time.
     class Token
     {
@@ -27,7 +24,8 @@ You may use this code as you see fit. I do not offer support with this script.
                 CURLOPT_POST => 1,
                 CURLOPT_USERPWD => self::CLIENT_ID . ":" . self::SECRET,
                 CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
-                CURLOPT_POSTFIELDS => 'grant_type=client_credentials'
+                CURLOPT_POSTFIELDS => 'grant_type=client_credentials',
+                CURLOPT_SSLVERSION => 6
                 )
             );
             
@@ -103,7 +101,8 @@ You may use this code as you see fit. I do not offer support with this script.
                 CURLOPT_URL => 'https://api.sandbox.paypal.com/v1/payments/payment',
                 CURLOPT_POST => 1,
                 CURLOPT_HTTPHEADER => array($oauth, 'Content-Type:application/json'),
-                CURLOPT_POSTFIELDS => json_encode($postvars)
+                CURLOPT_POSTFIELDS => json_encode($postvars),
+                CURLOPT_SSLVERSION => 6
             ));
             
             $resp = curl_exec($ch);
@@ -139,7 +138,8 @@ function lookupPayment($payerId) {
     curl_setopt_array($ch, array(
         CURLOPT_RETURNTRANSFER => 1,
         CURLOPT_URL => 'https://api.sandbox.paypal.com/v1/payments/payment/' . $payerId,
-        CURLOPT_HTTPHEADER => array($oauth, 'Content-Type:application/json')
+        CURLOPT_HTTPHEADER => array($oauth, 'Content-Type:application/json'),
+        CURLOPT_SSLVERSION => 6
         )
     );
 
@@ -194,7 +194,8 @@ function doExpressCheckout($payId, $payerId) {
         CURLOPT_URL => 'https://api.sandbox.paypal.com/v1/payments/payment/' . $payId . '/execute/',
         CURLOPT_POST => 1,
         CURLOPT_HTTPHEADER => array($oauth, 'Content-Type:application/json'),
-        CURLOPT_POSTFIELDS => json_encode($postvars)
+        CURLOPT_POSTFIELDS => json_encode($postvars),
+        CURLOPT_SSLVERSION => 6
         ));
     $resp = curl_exec($ch);
     if(!curl_exec($ch)){
